@@ -1,10 +1,11 @@
 {
-  "name": "Robô Automático",
+  "name": "Robo JL",
   "short_name": "RoboJL",
+  "description": "Robô automático para análise",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#111111",
-  "theme_color": "#d4af37",
+  "theme_color": "#111111",
   "icons": [
     {
       "src": "icon.png",
