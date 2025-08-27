@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Backbone JL — Robô Bac Bo Automático</title>
 
-<!-- PWA Manifest -->
+<!-- Manifest PWA -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#111111">
-<link rel="icon" type="image/png" href="icon.png">
 
 <style>
 :root{
@@ -183,7 +182,7 @@ function countFollowing(seqArr, pattern){
   for(let i=0;i<=seqArr.length-n-1;i++){
     let ok=true;
     for(let j=0;j<n;j++){ if(seqArr[i+j]!==pattern[j]){ ok=false; break; } }
-    if(ok){ const next=seqArr[i+n]; if(follow[next]!==undefined) follow[next]++; }
+    if(ok){ const next=seq[i+n]; if(follow[next]!==undefined) follow[next]++; }
   }
   return follow;
 }
@@ -214,7 +213,6 @@ function calcAll(){
     if(probs[c]>=0.98){ rec=c; break; }
   }
 
-  // ADICIONA AUTOMATICAMENTE AO HISTÓRICO
   if(rec !== '—' && seq[seq.length-1] !== rec){
     seq.push(rec);
     renderHistory();
@@ -239,6 +237,15 @@ function calcAll(){
 }
 
 setInterval(calcAll,25000);
+
+// Registrar Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(reg => console.log('Service Worker registrado!', reg))
+      .catch(err => console.error('Falha ao registrar SW:', err));
+  });
+}
 </script>
 </body>
 </html>
