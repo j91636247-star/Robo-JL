@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robô Automático</title>
+
+<!-- Manifest para PWA -->
+<link rel="manifest" href="manifest.json">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js').catch(console.error);
+  }
+</script>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  #login-overlay, #robot-panel {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.9);
+  }
+  #login-box {
+    background: #222;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  #login-box input {
+    padding: 10px;
+    width: 200px;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  #login-box button {
+    padding: 10px 20px;
+    border: none;
+    background: gold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  #robot-panel {
+    display: none;
+    background: #111;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 30px;
+  }
+  #robot-box {
+    background: #222;
+    padding: 20px;
+    border-radius: 16px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(255,215,0,0.6);
+  }
+  #countdown {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: gold;
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-overlay">
+  <div id="login-box">
+    <h2>Login</h2>
+    <input id="loginUser" type="text" placeholder="Digite seu login">
+    <br>
+    <button onclick="checkLogin()">Entrar</button>
+    <p id="login-msg" style="color:red;"></p>
+  </div>
+</div>
+
+<!-- ROBÔ -->
+<div id="robot-panel">
+  <div id="robot-box">
+    <h2>🤖 Robô Automático</h2>
+    <p>Bem-vindo, <span id="userName"></span>!</p>
+    <p>Tempo restante da licença:</p>
+    <div id="countdown"></div>
+  </div>
+</div>
+
+<script>
+  const allowedUser = "Diego";
+  const validityDays = 3;
+  const MS_PER_DAY = 24*60*60*1000;
+
+  function checkLogin() {
+    const user = document.getElementById("loginUser").value.trim();
+    const msg = document.getElementById("login-msg");
+
+    if (user === allowedUser) {
+      let expireTime = localStorage.getItem("expireTime");
+      if (!expireTime) {
+        expireTime = Date.now() + validityDays * MS_PER_DAY;
+        localStorage.setItem("expireTime", expireTime);
+      }
+      showRobot(user);
+    } else {
+      msg.textContent = "Login inválido!";
+    }
+  }
+
+  function showRobot(user) {
+    document.getElementById("login-overlay").style.display = "none";
+    document.getElementById("robot-panel").style.display = "flex";
+    document.getElementById("userName").textContent = user;
+    startCountdown();
+  }
+
+  function startCountdown() {
+    const countdownEl = document.getElementById("countdown");
+    let expireTime = localStorage.getItem("expireTime");
+
+    function updateTimer() {
+      const now = Date.now();
+      const distance = expireTime - now;
+
+      if (distance <= 0) {
+        countdownEl.textContent = "Expirado!";
+        localStorage.removeItem("expireTime");
+        setTimeout(()=>{location.reload();},2000);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000*60*60*24));
+      const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+      const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
+      const seconds = Math.floor((distance % (1000*60))/1000);
+
+      countdownEl.textContent = 
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  }
+
+  window.onload = () => {
+    const expireTime = localStorage.getItem("expireTime");
+    if (expireTime && Date.now() < expireTime) {
+      showRobot(allowedUser);
+    }
+  }
+</script>
+
+</body>
+</html>
