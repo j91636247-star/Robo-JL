@@ -5,5 +5,5 @@ self.addEventListener('activate', e => {
   clients.claim();
 });
 self.addEventListener('fetch', e => {
-  // Opcional: implementar cache
+  // Aqui você pode adicionar cache se quiser
 });
