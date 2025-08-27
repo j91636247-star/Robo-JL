@@ -1,19 +1,19 @@
 {
-  "name": "Robo JL",
+  "name": "Backbone JL - Robô Bac Bo",
   "short_name": "RoboJL",
-  "description": "Robô automático para análise",
-  "start_url": "./index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#111111",
   "theme_color": "#111111",
+  "description": "Robô Bac Bo Automático",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
