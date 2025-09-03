@@ -1,11 +1,11 @@
 {
-  "name": "Backbone JL - Robô Bac Bo",
-  "short_name": "RoboJL",
-  "start_url": ".",
+  "name": "Robô Bac Bo Automático",
+  "short_name": "Robô JL",
+  "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#111111",
-  "theme_color": "#111111",
-  "description": "Robô Bac Bo Automático",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192.png",
