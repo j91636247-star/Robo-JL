@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Backbone JL — Robô Bac Bo Automático</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000"/>
-<style>
-/* ---- SEU CSS INTEIRO AQUI (o mesmo que já tem, sem mudar nada) ---- */
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Robô JL</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000"/>
 </head>
-<body>
-  <!-- ---- SEU CÓDIGO INTEIRO AQUI (robô + planilha) ---- -->
+<body style="background:#000;color:#fff;font-family:sans-serif;text-align:center;">
 
-  <script src="app.js"></script>
+  <h1>🤖 Robô JL</h1>
+  <p>Seu app está funcionando!</p>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log("Service Worker registrado"))
+      .catch(err => console.error("Erro SW:", err));
+    }
+  </script>
 </body>
 </html>
