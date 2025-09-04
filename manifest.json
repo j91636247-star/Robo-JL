@@ -1,11 +1,10 @@
 {
-  "name": "Robô Bac Bo Automático",
-  "short_name": "Robô JL",
-  "start_url": "index.html",
+  "name": "Robô JL",
+  "short_name": "RobôJL",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
-  "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192.png",
